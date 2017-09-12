@@ -37,7 +37,36 @@
     </platform>
     
     <platform name="android">
-        
+        <config-file parent="/*" target="config.xml">
+            <feature name="AllUniteSDKCordova">
+                <param name="android-package" value="com.allunite.sdk.AllUniteSDKCordova" />
+            </feature>
+        </config-file>
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.BLUETOOTH" />
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+        </config-file>
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <receiver android:name="com.allunite.sdk.startup.StartupBroadcastReceiver">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
+                    <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                    <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                    <action android:name="com.allunite.sdk.startup.start" />
+                </intent-filter>
+            </receiver>
+
+            <service android:name="com.bluecats.sdk.BlueCatsSDKService" android:enabled="true" />
+            <service android:name=".service.BCService" />
+        </config-file>
+        <source-file src="src/android/com/ubudu/cordova/sdk/AllUniteSDKCordova.java"
+            target-dir="src/com/allunite/sdk" />
+        <framework src="com.github.allunite:mobile-unity-sdk:1.2.12" />
     </platform>
     
 </plugin>
