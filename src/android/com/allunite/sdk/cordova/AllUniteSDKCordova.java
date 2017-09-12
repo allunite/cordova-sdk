@@ -8,7 +8,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class UbuduSDKCordova extends CordovaPlugin {
+public class AllUniteSDKCordova extends CordovaPlugin {
 
     @Override
     public void pluginInitialize() {
@@ -32,6 +32,7 @@ public class UbuduSDKCordova extends CordovaPlugin {
             Log.e("AllUniteSDKCordova", "Unknown action received (action = " + action + ")");
             return false;
         }
+
         return true;
     }
 
