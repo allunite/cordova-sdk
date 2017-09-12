@@ -1,0 +1,32 @@
+{
+  "name": "allunite-cordova-sdk-fork",
+  "version": "1.0.0",
+  "description": "Cordova Allunite SDK Plugin",
+  "cordova": {
+    "id": "com.allunite.sdk.cordova",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuraKr/cordova-sdk.git"
+  },
+  "keywords": [
+    "cordova",
+    "ubudu",
+    "sdk",
+    "beacon",
+    "ibeacon",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "Yury",
+  "license": "Bsd",
+  "bugs": {
+    "url": "https://github.com/YuraKr/cordova-sdk/issues"
+  },
+  "homepage": "https://github.com/YuraKr/cordova-sdk#readme"
+}
