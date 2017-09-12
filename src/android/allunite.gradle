@@ -1,0 +1,3 @@
+dependencies {
+    compile 'com.github.allunite:mobile-unity-sdk:1.2.12'
+}
