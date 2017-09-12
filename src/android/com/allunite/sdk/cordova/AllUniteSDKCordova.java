@@ -17,17 +17,22 @@ public class AllUniteSDKCordova extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        Log.d("UbuduSDKCordova", "execute: action = " + action + " # args = " + args.length());
+        Log.d("AllUniteSDKCordova", "execute: action = " + action + " # args = " + args.length());
 
-        if (action.equals("bindDevice")) {
-            this.getSDKVersion(callbackContext);
+        if (action.equals("initSdk")) {
+            String accountId = args.getString(0);
+            String acountKey = args.getString(1);
+            if (accountId != null && acountKey != null) {
+                AllUniteSdk.init(getContext, accountId, acountKey);
+            }
+        } else if (action.equals("bindDevice")) {
+            String deepLink = args.getString(0);
+            if (deepLink != null) {
+                AllUniteSdk.bindDevice(getContext, deepLink);
+            }
         } else if (action.equals("isBeaconTrackingEnabled")) {
-            this.getAppNamespace(callbackContext);
         } else if (action.equals("startBeaconTracking")) {
-            String appNamespace = args.getString(0);
-            this.setAppNamespace(appNamespace, callbackContext);
         } else if (action.equals("stopBeaconTracking")) {
-            this.getBaseURL(callbackContext);
         } else {
             Log.e("AllUniteSDKCordova", "Unknown action received (action = " + action + ")");
             return false;
