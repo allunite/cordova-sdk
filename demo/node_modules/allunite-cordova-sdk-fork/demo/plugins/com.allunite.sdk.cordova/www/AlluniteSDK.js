@@ -1,6 +1,16 @@
 var AlluniteSDK = {
-    initSdk: function (accountId, accountKey, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "initSdk", [accountId, accountKey]);
+    bindDevice: function (accountId, accountKey, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "bindDevice", []);
+    },
+    
+    isBeaconTrackingEnabled: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "isBeaconTrackingEnabled", []);
+    },
+    startBeaconTracking: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "startBeaconTracking", []);
+    },
+    stopBeaconTracking: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "stopBeaconTracking", []);
     }
 };
 

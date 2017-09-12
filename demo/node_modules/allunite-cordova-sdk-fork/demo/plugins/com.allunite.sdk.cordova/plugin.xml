@@ -15,12 +15,14 @@
         <config-file target="config.xml" parent="/*">
             <feature name="AlluniteSDKCordova">
                 <param name="ios-package" value="AlluniteSDKCordova"/>
+                <param name="onload" value="true" />
             </feature>
         </config-file>
         <header-file src="src/ios/AlluniteSDKCordova.h" />
         <source-file src="src/ios/AlluniteSDKCordova.m" />
         
         <header-file src="src/ios/AllUniteSdkManager.h" />
+        <header-file src="src/ios/AllUniteSdkBeaconInfo.h" />
         <source-file src="src/ios/libAllUniteSdk.a" framework="true" />
         <source-file src="src/ios/libBlueCatsSDK.a" framework="true" />
         

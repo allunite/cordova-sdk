@@ -2,6 +2,9 @@
 
 @interface AlluniteSDKCordova : CDVPlugin
     
-- (void)initSdk:(CDVInvokedUrlCommand*)command;
+- (void)bindDevice:(CDVInvokedUrlCommand*)command;
+- (void)isBeaconTrackingEnabled:(CDVInvokedUrlCommand*)command;
+- (void)startBeaconTracking:(CDVInvokedUrlCommand*)command;
+- (void)stopBeaconTracking:(CDVInvokedUrlCommand*)command;
     
 @end
