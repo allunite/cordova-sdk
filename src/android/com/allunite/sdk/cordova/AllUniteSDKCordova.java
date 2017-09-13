@@ -3,6 +3,8 @@ package com.allunite.sdk.cordova;
 import android.content.Context;
 import android.util.Log;
 
+import com.allunite.sdk.AllUniteSdk;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
@@ -23,12 +25,12 @@ public class AllUniteSDKCordova extends CordovaPlugin {
             String accountId = args.getString(0);
             String acountKey = args.getString(1);
             if (accountId != null && acountKey != null) {
-                AllUniteSdk.init(getContext, accountId, acountKey);
+                AllUniteSdk.init(getContext(), accountId, acountKey);
             }
         } else if (action.equals("bindDevice")) {
             String deepLink = args.getString(0);
             if (deepLink != null) {
-                AllUniteSdk.bindDevice(getContext, deepLink);
+                AllUniteSdk.bindDevice(getContext(), deepLink);
             }
         } else if (action.equals("isBeaconTrackingEnabled")) {
         } else if (action.equals("startBeaconTracking")) {

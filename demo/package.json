@@ -10,6 +10,8 @@
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
     "dependencies": {
+        "allunite-cordova-sdk-fork": "file:..",
+        "cordova-android": "^6.2.3",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-device": "git+https://github.com/apache/cordova-plugin-device.git",
         "cordova-plugin-whitelist": "^1.3.2"
@@ -19,6 +21,7 @@
             "cordova-plugin-whitelist": {}
         },
         "platforms": [
+            "android",
             "ios"
         ]
     }

@@ -22,7 +22,5 @@ android {
 }
 
 dependencies {
-    compile 'com.github.allunite:mobile-unity-sdk:1.2.12', repositories {
-        maven { url "https://jitpack.io" }
-    }
+    compile 'com.github.allunite:mobile-unity-sdk:1.2.12'
 }
