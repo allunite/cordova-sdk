@@ -15,7 +15,8 @@
     },
     "cordova": {
         "plugins": {
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "com.allunite.sdk.cordova": {}
         },
         "platforms": []
     }
