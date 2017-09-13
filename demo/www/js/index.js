@@ -42,6 +42,47 @@ var app = {
             AlluniteSDK.initSdk("accountId", "acountKey", success, failure);
         }
         
+        
+        
+        document.getElementById("isSdkEnabledButtonId").addEventListener("click", isSdkEnabled);
+        function isSdkEnabled(){
+            alert("isSdkEnabledButtonId")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.isSdkEnabled(success, failure);
+        }
+        
+        document.getElementById("setSdkEnabledButtonId").addEventListener("click", setSdkEnabled);
+        function setSdkEnabled(){
+            alert("setSdkEnabled")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.setSdkEnabled(true, success, failure);
+        }
+        
+        document.getElementById("trackWithCategotyButtonId").addEventListener("click", trackWithCategory);
+        function trackWithCategory(){
+            alert("setSdkEnabled")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.trackWithCategory("action category", "action id", success, failure);
+        }
+        
         document.getElementById("bindButtonId").addEventListener("click", bindDevice);
         function bindDevice(){
             alert("Bind")
