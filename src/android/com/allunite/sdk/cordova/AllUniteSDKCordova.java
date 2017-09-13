@@ -3,6 +3,8 @@ package com.allunite.sdk.cordova;
 import android.content.Context;
 import android.util.Log;
 
+import android.support.v4.app.ActivityCompat;
+
 import com.allunite.sdk.AllUniteSdk;
 
 import org.apache.cordova.CallbackContext;
@@ -15,6 +17,11 @@ public class AllUniteSDKCordova extends CordovaPlugin {
     @Override
     public void pluginInitialize() {
 
+    }
+
+    public void onStart() {
+    if(!isLocationPermissionGranted())
+	requestLocationPermission()
     }
 
     @Override
@@ -47,4 +54,25 @@ public class AllUniteSDKCordova extends CordovaPlugin {
         return this.cordova.getActivity().getApplicationContext();
     }
 
+    public boolean isLocationPermissionGranted() {
+        return ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestLocationPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+    }
+
+    /**
+     * Called by the system when the user grants permissions
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionResult(int requestCode, String[] permissions,
+                                          int[] grantResults) throws JSONException {
+        StartServicesHelper.startServices(getContext());
+    }
 }

@@ -39,7 +39,7 @@ var app = {
             var failure = function() {
                 alert("Error calling");
             }
-            AlluniteSDK.initSdk("accountId", "acountKey", success, failure);
+            AlluniteSDK.initSdk("Ardas test", "287708C2BE7048A3B4D8518D84E642B3", success, failure);
         }
         
         
