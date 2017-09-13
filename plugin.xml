@@ -41,6 +41,7 @@
         <config-file parent="/*" target="config.xml">
             <feature name="AllUniteSDKCordova">
                 <param name="android-package" value="com.allunite.sdk.cordova.AllUniteSDKCordova" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
         <config-file parent="/manifest" target="AndroidManifest.xml">
