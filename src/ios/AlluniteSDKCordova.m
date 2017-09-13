@@ -6,13 +6,13 @@
 #import "AllUniteSdkManager.h"
 
 @implementation AlluniteSDKCordova
-    
+
 - (void)pluginInitialize {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunchingNotification:) name:UIApplicationDidFinishLaunchingNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:CDVPluginHandleOpenURLNotification object:nil];
 }
-    
+
 - (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString* accountId = @"CordovaDemo";
@@ -21,7 +21,7 @@
         
     });
 }
-    
+
 - (void)handleOpenURLNotification:(NSNotification *)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSURL* url = notification.object;
@@ -30,7 +30,57 @@
         }
     });
 }
-    
+
+
+- (void)initSdk:(CDVInvokedUrlCommand*)command {
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)isSdkEnabled:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
+        BOOL trackingEnabled = [alluniteSdk isSdkEnabled];
+        
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:trackingEnabled];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    });
+}
+
+- (void)setSdkEnabled:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
+        BOOL trackingEnabled = command.arguments[0];
+        [alluniteSdk setSdkEnabled:trackingEnabled];
+        
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:trackingEnabled];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    });
+}
+
+- (void)trackWithCategory:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
+        NSString* actionCategory = command.arguments[0];
+        NSString* actionId = command.arguments[1];
+        [alluniteSdk trackWithCategory:actionCategory
+                              actionId:actionId
+                            completion:^(NSError * _Nullable error) {
+                                if (error != nil) {
+                                    NSLog(@"%@. Track with category failed", [self TAG]);
+                                    
+                                    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+                                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+                                    return;
+                                }
+                                
+                                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+                                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+                            }];
+    });
+}
+
+
 - (void)bindDevice:(CDVInvokedUrlCommand*)command {
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -69,17 +119,17 @@
         
     });
 }
-    
+
 - (void)isBeaconTrackingEnabled:(CDVInvokedUrlCommand*)command {
     dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
         BOOL trackingEnabled = [alluniteSdk isTrackingBeacons];
         
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsBool:trackingEnabled];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:trackingEnabled];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     });
 }
-    
+
 - (void)startBeaconTracking:(CDVInvokedUrlCommand*)command {
     dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
@@ -99,7 +149,7 @@
         }];
     });
 }
-    
+
 - (void)stopBeaconTracking:(CDVInvokedUrlCommand*)command {
     dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
@@ -109,13 +159,13 @@
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     });
 }
-    
+
 -(NSString*) TAG {
     return NSStringFromClass([self class]);
 }
-    
+
 -(BOOL) isParamEmpty: (NSString*) param {
     return param == nil || [param length] == 0;
 }
-    
+
 @end
