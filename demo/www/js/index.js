@@ -29,18 +29,70 @@ var app = {
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
         
-        //alert("Device ready");
+        document.getElementById("initSdkButtonId").addEventListener("click", initDevice);
+        function initDevice(){
+            alert("initSdk")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.initSdk("accountId", "acountKey", success, failure);
+        }
         
-         var success = function(message) {
-         alert(message);
-         }
-         
-         var failure = function() {
-         alert("Error calling");
-         }
-         
-         AlluniteSDK.initSdk("accountId", "acountKey", success, failure);
-         
+        document.getElementById("bindButtonId").addEventListener("click", bindDevice);
+        function bindDevice(){
+            alert("Bind")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.bindDevice("deeplink for android/ ios ignore this", success, failure);
+        }
+        
+        document.getElementById("startTrackingButtonId").addEventListener("click", startTracking);
+        function startTracking(){
+            alert("startTracking")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.startBeaconTracking(success, failure);
+        }
+        
+        document.getElementById("stopTrackingButtonId").addEventListener("click", stopTracking);
+        function stopTracking(){
+            alert("stopTracking")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.stopBeaconTracking(success, failure);
+        }
+        
+        document.getElementById("stateTrackingButtonId").addEventListener("click", stateTracking);
+        function stateTracking(){
+            alert("stateTracking")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.isBeaconTrackingEnabled(success, failure);
+        }
     },
 
     // Update DOM on a Received Event
