@@ -1,11 +1,14 @@
 package com.allunite.sdk.cordova;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import android.support.v4.app.ActivityCompat;
-
 import com.allunite.sdk.AllUniteSdk;
+import com.allunite.sdk.service.StartServicesHelper;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -20,8 +23,8 @@ public class AllUniteSDKCordova extends CordovaPlugin {
     }
 
     public void onStart() {
-    if(!isLocationPermissionGranted())
-	requestLocationPermission()
+        if (!isLocationPermissionGranted())
+            requestLocationPermission();
     }
 
     @Override
@@ -51,7 +54,11 @@ public class AllUniteSDKCordova extends CordovaPlugin {
     }
 
     private Context getContext() {
-        return this.cordova.getActivity().getApplicationContext();
+        return getActivity().getApplicationContext();
+    }
+
+    private Activity getActivity() {
+        return this.cordova.getActivity();
     }
 
     public boolean isLocationPermissionGranted() {
@@ -60,7 +67,7 @@ public class AllUniteSDKCordova extends CordovaPlugin {
     }
 
     private void requestLocationPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
     }
 
     /**
@@ -76,3 +83,4 @@ public class AllUniteSDKCordova extends CordovaPlugin {
         StartServicesHelper.startServices(getContext());
     }
 }
+
