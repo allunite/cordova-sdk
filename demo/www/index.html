@@ -42,7 +42,17 @@
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
+            <form>
+                <input type="button" value="Bind" onclick="bindDevice()">
+            </form>
+            
+            <script>
+                function bindDevice() {
+                    alert("bind");
+                }
+            </script>
         </div>
+        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>

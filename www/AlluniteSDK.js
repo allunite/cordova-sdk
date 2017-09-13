@@ -1,7 +1,9 @@
 var AlluniteSDK = {
     
     initSdk: function(accountId, acountKey, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "initSdk", [accountId, acountKey]);           
+        if(device.platform === 'Android') {
+            cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "initSdk", [accountId, acountKey]);
+        }
     },
 
     bindDevice: function (deepLink, successCallback, errorCallback) {

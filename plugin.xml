@@ -10,6 +10,8 @@
         <clobbers target="AlluniteSDK" />
     </js-module>
 
+    <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
+    
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="AlluniteSDKCordova">
