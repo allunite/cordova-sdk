@@ -3,12 +3,15 @@ package com.allunite.sdk.cordova;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.allunite.sdk.AllUniteSdk;
+import com.allunite.sdk.service.BCService;
 import com.allunite.sdk.service.StartServicesHelper;
+import com.allunite.sdk.utils.StorageUtils;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -33,18 +36,33 @@ public class AllUniteSDKCordova extends CordovaPlugin {
 
         if (action.equals("initSdk")) {
             String accountId = args.getString(0);
-            String acountKey = args.getString(1);
-            if (accountId != null && acountKey != null) {
-                AllUniteSdk.init(getContext(), accountId, acountKey);
+            String accountKey = args.getString(1);
+            if (accountId != null && accountKey != null) {
+                AllUniteSdk.init(getContext(), accountId, accountKey);
             }
+
         } else if (action.equals("bindDevice")) {
             String deepLink = args.getString(0);
             if (deepLink != null) {
                 AllUniteSdk.bindDevice(getContext(), deepLink);
             }
-        } else if (action.equals("isBeaconTrackingEnabled")) {
+
+        } else if (action.equals("isSdkEnabled")) {
+            return StorageUtils.loadBoolean(getContext(), "isEnabled");
+
         } else if (action.equals("startBeaconTracking")) {
+            StartServicesHelper.startServices(getContext());
+
         } else if (action.equals("stopBeaconTracking")) {
+            getContext().stopService(new Intent(getContext(), BCService.class));
+
+        } else if (action.equals("trackWithCategory")) {
+            String actionCategory = args.getString(0);
+            String actionId = args.getString(1);
+            if (actionCategory != null && actionId != null) {
+                AllUniteSdk.track(getContext(), actionCategory, actionId);
+            }
+
         } else {
             Log.e("AllUniteSDKCordova", "Unknown action received (action = " + action + ")");
             return false;
@@ -83,4 +101,3 @@ public class AllUniteSDKCordova extends CordovaPlugin {
         StartServicesHelper.startServices(getContext());
     }
 }
-
