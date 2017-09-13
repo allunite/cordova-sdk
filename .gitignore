@@ -2,3 +2,4 @@
 .idea
 *.iml
 demo/node_modules
+demo/plugins

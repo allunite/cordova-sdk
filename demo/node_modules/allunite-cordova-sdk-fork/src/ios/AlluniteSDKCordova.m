@@ -7,90 +7,81 @@
 
 @implementation AlluniteSDKCordova
     
-- (void)pluginInitialize
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunchingNotification:) name:UIApplicationDidFinishLaunchingNotification object:nil];
-    }
+- (void)pluginInitialize {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunchingNotification:) name:UIApplicationDidFinishLaunchingNotification object:nil];
     
-- (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification
-    {
-        // Put here the code that should be on the AppDelegate.m
-        NSLog(@"app launching");
-        
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:CDVPluginHandleOpenURLNotification object:nil];
+}
+    
+- (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSString* accountId = @"CordovaDemo";
         NSString* accountKey = @"CA16C4FE98CF47AAB7B56137E9E3D7C1";
         [[AllUniteSdkManager sharedInstance] initializeAllUniteSdkWithAccountId:accountId accountKey:accountKey launchOptions:nil];
-    }
-    
-- (void)initSdk:(CDVInvokedUrlCommand*)command
-    {
-        NSString* accountId = [command.arguments objectAtIndex:0];
-        NSString* accountKey = [command.arguments objectAtIndex:1];
         
-        if ( [self isParamEmpty:accountId]
-            || [self isParamEmpty:accountKey]) {
-            
-            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-            return;
+    });
+}
+    
+- (void)handleOpenURLNotification:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSURL* url = notification.object;
+        if (url != nil){
+            [[AllUniteSdkManager sharedInstance] openUrl:url options:nil];
         }
-        
-        //    [[AllUniteSdkManager sharedInstance] initializeAllUniteSdkWithAccountId:accountId accountKey:accountKey launchOptions:nil];
-        
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:accountId];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
+    });
+}
     
-- (void)bindDevice:(CDVInvokedUrlCommand*)command
-    {
+- (void)bindDevice:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
-        [alluniteSdk bindDevice:^(NSError * _Nullable error) {
-            if (error != nil) {
+        
+        [alluniteSdk requestAutorizationStatus:^(CLAuthorizationStatus status) {
+            
+            if (status == kCLAuthorizationStatusNotDetermined) {
+                return;
+            }
+            
+            if (status != kCLAuthorizationStatusAuthorizedAlways
+                && status != kCLAuthorizationStatusAuthorizedWhenInUse) {
+                
+                NSLog(@"%@. App don't have permission using CoreLocation", [self TAG]);
+                
                 CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                 return;
             }
             
-            
-            [alluniteSdk requestAutorizationStatus:^(CLAuthorizationStatus status) {
-                if (status != kCLAuthorizationStatusAuthorizedAlways
-                    && status != kCLAuthorizationStatusAuthorizedWhenInUse) {
-                    
-                    NSLog(@"%@. App don't have permission using CoreLocation", [self TAG]);
+            [alluniteSdk bindDevice:^(NSError * _Nullable error) {
+                if (error != nil) {
+                    NSLog(@"%@. Bind failed", [self TAG]);
                     
                     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
                     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                     return;
                 }
                 
-                [alluniteSdk bindDevice:^(NSError * _Nullable error) {
-                    if (error != nil) {
-                        NSLog(@"%@. Bind failed", [self TAG]);
-                        
-                        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-                        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-                        return;
-                    }
-                    
-                    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-                }];
+                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             }];
-            
         }];
-    }
+        
+    });
+}
     
-- (void)isBeaconTrackingEnabled:(CDVInvokedUrlCommand*)command
-    {
+- (void)isBeaconTrackingEnabled:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
         BOOL trackingEnabled = [alluniteSdk isTrackingBeacons];
         
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsBool:trackingEnabled];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
+    });
+}
     
-- (void)startBeaconTracking:(CDVInvokedUrlCommand*)command
-    {
+- (void)startBeaconTracking:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
         [alluniteSdk startTrackingBeacon:^(NSError * _Nullable error) {
             if (error != nil) {
@@ -106,24 +97,25 @@
             
         } didFindBeacon:^(AllUniteSdkBeaconInfo * _Nonnull beacon) {
         }];
-    }
+    });
+}
     
-- (void)stopBeaconTracking:(CDVInvokedUrlCommand*)command
-    {
+- (void)stopBeaconTracking:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
         [alluniteSdk stopTrackingBeacon];
         
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
+    });
+}
     
 -(NSString*) TAG {
     return NSStringFromClass([self class]);
 }
     
--(BOOL) isParamEmpty: (NSString*) param
-    {
-        return param == nil || [param length] == 0;
-    }
+-(BOOL) isParamEmpty: (NSString*) param {
+    return param == nil || [param length] == 0;
+}
     
-    @end
+@end
