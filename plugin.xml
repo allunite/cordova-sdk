@@ -68,6 +68,7 @@
         
         <header-file src="src/ios/AlluniteSDKCordova.h" />
         <source-file src="src/ios/AlluniteSDKCordova.m" />
+        <source-file src="src/ios/AlluniteSdkConfig.plist" />
 
         <header-file src="src/ios/AllUniteSdkManager.h" />
         <header-file src="src/ios/AllUniteSdkBeaconInfo.h" />
