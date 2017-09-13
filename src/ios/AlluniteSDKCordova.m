@@ -8,6 +8,7 @@
 @implementation AlluniteSDKCordova
 
 - (void)pluginInitialize {
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunchingNotification:) name:UIApplicationDidFinishLaunchingNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:CDVPluginHandleOpenURLNotification object:nil];
@@ -15,8 +16,17 @@
 
 - (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString* accountId = @"CordovaDemo";
-        NSString* accountKey = @"CA16C4FE98CF47AAB7B56137E9E3D7C1";
+        
+        NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"AlluniteSdkConfig" ofType:@"plist"];
+        NSDictionary* contentDict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+        
+        NSString* accountId = [contentDict objectForKey:@"accountId"];
+        NSString* accountKey = [contentDict objectForKey:@"accountKey"];
+        
+        if (accountId.length == 0 && accountKey.length == 0) {
+            [NSException raise:@"AlluniteSdkConfig.plist" format:@"Missing AlluniteSdkConfig.plist config in app recources"];
+        }
+        
         [[AllUniteSdkManager sharedInstance] initializeAllUniteSdkWithAccountId:accountId accountKey:accountKey launchOptions:nil];
         
     });
