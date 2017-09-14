@@ -43,6 +43,21 @@
 
 
 - (void)initSdk:(CDVInvokedUrlCommand*)command {
+    
+    AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
+    [alluniteSdk reinitilize:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"%@. Init sdk request failed", [self TAG]);
+            
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+            return;
+        }
+        
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+    
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
