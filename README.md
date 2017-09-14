@@ -73,3 +73,20 @@ Example for CordovaDemo account:
 </dict>
 </plist>
 ```
+
+# Android cordova project
+1. Open cordova Android project in XCode.
+2. Open project manifest file.
+3. Add intent filter for main activity for listening your deep link:
+```
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="main"
+                    android:scheme="all-unite-demo-cordova" />
+            </intent-filter>
+```
