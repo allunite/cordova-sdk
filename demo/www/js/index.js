@@ -39,7 +39,7 @@ var app = {
             var failure = function() {
                 alert("Error calling");
             }
-            AlluniteSDK.initSdk("Ardas test", "287708C2BE7048A3B4D8518D84E642B3", success, failure);
+            AlluniteSDK.initSdk("CordovaDemo", "CA16C4FE98CF47AAB7B56137E9E3D7C1", success, failure);
         }
         
         document.getElementById("isSdkEnabledButtonId").addEventListener("click", isSdkEnabled);
@@ -104,7 +104,7 @@ var app = {
             var failure = function() {
                 alert("Error calling");
             }
-            AlluniteSDK.bindDevice("deeplink for android/ ios ignore this", success, failure);
+            AlluniteSDK.bindDevice("all-unite-demo-cordova://main", success, failure);
         }
         
         document.getElementById("startTrackingButtonId").addEventListener("click", startTracking);

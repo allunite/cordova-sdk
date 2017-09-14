@@ -47,6 +47,10 @@ public class AllUniteSDKCordova extends CordovaPlugin {
                 AllUniteSdk.bindDevice(getContext(), deepLink);
             }
 
+        } else if (action.equals("setSdkEnabled")) {
+           boolean enabled = args.getBoolean(0);
+	   AllUniteSdk.setSdkEnabled(getContext(), enabled);
+
         } else if (action.equals("isSdkEnabled")) {
             return StorageUtils.loadBoolean(getContext(), "isEnabled");
 
