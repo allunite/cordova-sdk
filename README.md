@@ -30,8 +30,28 @@ Result:
 Created cordova poject for android and|or ios platform
 
 4. Add the AllUnite SDK plugin to cordova project
-'''
+```
 cordova plugin add https://github.com/allunite/cordova-sdk
-'''
+```
 Result: 
 Added AllUnite SDK plugin to android|ios platform.
+
+
+# IOS cordova platform
+
+1. Open cordova ios project in XCode (<projectname>.xcworkspace)
+2. Open project manifest file *-Info.plist and set yours description for keys: NSBluetoothPeripheralUsageDescription, NSLocationAlwaysUsageDescription, NSLocationUsageDescription 
+3. Find config file AlluniteSdkConfig.plist in project structure. Change values for keys accountId and accountKey to yours.
+Example for CordovaDemo account:
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>accountId</key>
+	<string>CordovaDemo</string>
+	<key>accountKey</key>
+	<string>CA16C4FE98CF47AAB7B56137E9E3D7C1</string>
+</dict>
+</plist>
+```
