@@ -68,7 +68,7 @@ function bindDevice(){
     var failure = function() {
         alert("Error calling");
     }
-    AlluniteSDK.bindDevice("deeplink for android/ ios ignore this", success, failure);
+    AlluniteSDK.bindDevice(success, failure);
 }
 ```
 ## Beacon tracking start
