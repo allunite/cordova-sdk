@@ -36,8 +36,25 @@ cordova plugin add https://github.com/allunite/cordova-sdk
 Result: 
 Added AllUnite SDK plugin to android|ios platform.
 
+5. Build and Run
 
-# IOS cordova platform
+iOS
+
+To only build the app: ```cordova build ios```
+
+To run on an iPhone simulator (won't be able to detect beacons but allows to check that everything runs as expected) ```cordova emulate ios``
+
+To launch the app on a device, plug a device, then ```cordova run ios```
+
+Android
+
+To only build the app: ```cordova build android```
+
+To run on an Android simulator (won't be able to detect beacons but allows to check that everything runs as expected): ```cordova emulate android```
+
+To launch the app on a device, plug a device, then ```cordova run android```
+
+# IOS cordova project
 
 1. Open cordova ios project in XCode (<projectname>.xcworkspace)
 2. Open project manifest file *-Info.plist and set yours description for keys: NSBluetoothPeripheralUsageDescription, NSLocationAlwaysUsageDescription, NSLocationUsageDescription 
