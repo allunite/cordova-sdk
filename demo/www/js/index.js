@@ -104,7 +104,7 @@ var app = {
             var failure = function() {
                 alert("Error calling");
             }
-            AlluniteSDK.bindDevice("all-unite-demo-cordova://main", success, failure);
+            AlluniteSDK.bindDevice(success, failure);
         }
         
         document.getElementById("startTrackingButtonId").addEventListener("click", startTracking);

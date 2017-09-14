@@ -19,8 +19,8 @@ var AlluniteSDK = {
         cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "trackWithCategory", [actionCategory, actionId]);
     },
 
-    bindDevice: function (deepLink, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "bindDevice", [deepLink]);
+    bindDevice: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "bindDevice", []);
     },
 
     isBeaconTrackingEnabled: function (successCallback, errorCallback) {
