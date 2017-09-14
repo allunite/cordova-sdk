@@ -1,4 +1,4 @@
-# AllUnite JavaScript Cordova Api (example)
+# AllUnite JavaScript Cordova Api
 
 ## Init device
 
@@ -15,7 +15,7 @@ function initDevice(){
 }
 ```
 Parameters "your accountId" and "your accountKey" are ignored in iOS.
-## Detect state sdk
+## Detect SDK state
 ```
 function isSdkEnabled(){
     var success = function(enabled) {
@@ -33,7 +33,7 @@ function isSdkEnabled(){
     AlluniteSDK.isSdkEnabled(success, failure);
 }
 ```
-## Change State Sdk
+## Change SDK state
 ```
 function setSdkEnabled(){
     var success = function(message) {
@@ -46,7 +46,7 @@ function setSdkEnabled(){
     AlluniteSDK.setSdkEnabled(true, success, failure); // true or false param
 }
 ```
-## Track action
+## Track custom action
 ```
 function trackWithCategory(){
     var success = function(message) {
@@ -72,7 +72,7 @@ function bindDevice(){
     AlluniteSDK.bindDevice(success, failure);
 }
 ```
-## Beacon tracking start
+## Start beacon tracking
 ```
 function startTracking(){
     var success = function(message) {
@@ -85,7 +85,7 @@ function startTracking(){
     AlluniteSDK.startBeaconTracking(success, failure);
 }
 ```
-## Beacon tracking stop
+## Stop beacon tracking
 ```
 function stopTracking(){
     var success = function(message) {
