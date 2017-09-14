@@ -1,75 +1,99 @@
-# AllUnite Cordova SDK
+# AllUnite JavaScript Cordova Api (example)
 
-Cordova plugin for iOS and Android to use AllUnite SDK in a Cordova application.
+## Init device
 
-The plugin is currently in development. As a consequence the plugin API may change without notice until it reaches a stable form.
-
-# Installation procedure
-
-Follow these instructions in order to get started with a fresh Cordova app that runs on iOS and Android and integrates the AllUnite SDK.
-
-1. Install Cordova
-
-If you don't already have Cordova installed then start by installing the Cordova toolchain which is available at http://cordova.apache.org/#download
-
-2. Create a Cordova application
-
-Create a new cordova application if you don't have one
 ```
-cordova create AllUniteDemo com.example.allunite AllUniteDemo
+function initDevice(){
+    var success = function(message) {
+        alert("success");
+    }
+
+    var failure = function() {
+        alert("Error calling");
+    }
+    AlluniteSDK.initSdk("your accountId", "your accountKey", success, failure);
+}
 ```
-Result:
-Creating a new cordova project with name "AllUniteDemo" and id "com.example.allunite"
-
-3. Add Android (or|and) ios platform support if desired and not already present
+## Detect state sdk
 ```
-cordova platform add android
-cordova platform add ios
+function isSdkEnabled(){
+    var success = function(enabled) {
+        alert(enabled); // enabled is true or false
+        if(enabled){
+            // All api functions are available
+        } else {
+            // Only func initSdk is enabled
+        }
+    }
+
+    var failure = function() {
+        alert("Error calling");
+    }
+    AlluniteSDK.isSdkEnabled(success, failure);
+}
 ```
-Result: 
-Created cordova poject for android and|or ios platform
-
-4. Add the AllUnite SDK plugin to cordova project
+## Change State Sdk
 ```
-cordova plugin add https://github.com/allunite/cordova-sdk
+function setSdkEnabled(){
+    var success = function(message) {
+        alert("Success");
+    }
+
+    var failure = function() {
+        alert("Error calling");
+    }
+    AlluniteSDK.setSdkEnabled(true, success, failure); // true or false param
+}
 ```
-Result: 
-Added AllUnite SDK plugin to android|ios platform.
+## Track action
+```
+function trackWithCategory(){
+    var success = function(message) {
+        alert("Success");
+    }
 
-5. Build and Run
+    var failure = function() {
+        alert("Error calling");
+    }
+    AlluniteSDK.trackWithCategory("action category", "action id", success, failure);
+}
+```
+## Bind device
+```
+function bindDevice(){
+    var success = function(message) {
+        alert("Success");
+    }
 
-### iOS
+    var failure = function() {
+        alert("Error calling");
+    }
+    AlluniteSDK.bindDevice("deeplink for android/ ios ignore this", success, failure);
+}
+```
+## Beacon tracking start
+```
+function startTracking(){
+    var success = function(message) {
+        alert("Success");
+    }
 
-To only build the app: ```cordova build ios```
+    var failure = function() {
+        alert("Error calling");
+    }
+    AlluniteSDK.startBeaconTracking(success, failure);
+}
+```
+## Beacon tracking stop
+```
+function stopTracking(){
+    var success = function(message) {
+        alert("Success");
+    }
 
-To run on an iPhone simulator (won't be able to detect beacons but allows to check that everything runs as expected) ```cordova emulate ios```
-
-To launch the app on a device, plug a device, then ```cordova run ios```
-
-### Android
-
-To only build the app: ```cordova build android```
-
-To run on an Android simulator (won't be able to detect beacons but allows to check that everything runs as expected): ```cordova emulate android```
-
-To launch the app on a device, plug a device, then ```cordova run android```
-
-# IOS cordova project
-
-1. Open cordova ios project in XCode (<projectname>.xcworkspace)
-2. Open project manifest file *-Info.plist and set yours description values for keys: ```NSBluetoothPeripheralUsageDescription, NSLocationAlwaysUsageDescription, NSLocationUsageDescription``` 
-For key ```CFBundleURLSchemes``` change from default scheme named ```allunite-sdk``` to yours, registered for your accountId and accountKey
-3. Find config file ```AlluniteSdkConfig.plist``` in project structure and change values for keys ```accountId``` and ```accountKey``` to yours.
-Example for CordovaDemo account:
-``` xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>accountId</key>
-	<string>CordovaDemo</string>
-	<key>accountKey</key>
-	<string>CA16C4FE98CF47AAB7B56137E9E3D7C1</string>
-</dict>
-</plist>
+    var failure = function() {
+        alert("Error calling");
+    }
+    AlluniteSDK.stopBeaconTracking(success, failure);
+}
 ```
