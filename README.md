@@ -38,15 +38,15 @@ Added AllUnite SDK plugin to android|ios platform.
 
 5. Build and Run
 
-iOS
+### iOS
 
 To only build the app: ```cordova build ios```
 
-To run on an iPhone simulator (won't be able to detect beacons but allows to check that everything runs as expected) ```cordova emulate ios``
+To run on an iPhone simulator (won't be able to detect beacons but allows to check that everything runs as expected) ```cordova emulate ios```
 
 To launch the app on a device, plug a device, then ```cordova run ios```
 
-Android
+### Android
 
 To only build the app: ```cordova build android```
 
