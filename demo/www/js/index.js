@@ -42,11 +42,9 @@ var app = {
             AlluniteSDK.initSdk("Ardas test", "287708C2BE7048A3B4D8518D84E642B3", success, failure);
         }
         
-        
-        
         document.getElementById("isSdkEnabledButtonId").addEventListener("click", isSdkEnabled);
         function isSdkEnabled(){
-            alert("isSdkEnabledButtonId")
+            alert("isSdkEnabled")
             var success = function(message) {
                 alert(message);
             }
@@ -68,6 +66,19 @@ var app = {
                 alert("Error calling");
             }
             AlluniteSDK.setSdkEnabled(true, success, failure);
+        }
+        
+        document.getElementById("setSdkDisabledButtonId").addEventListener("click", setSdkDisabled);
+        function setSdkDisabled(){
+            alert("setSdkDisabled")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.setSdkEnabled(false, success, failure);
         }
         
         document.getElementById("trackWithCategotyButtonId").addEventListener("click", trackWithCategory);

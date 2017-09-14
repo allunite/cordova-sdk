@@ -75,10 +75,10 @@
 - (void)setSdkEnabled:(CDVInvokedUrlCommand*)command {
     dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
-        BOOL trackingEnabled = command.arguments[0];
+        BOOL trackingEnabled = [command.arguments[0] boolValue];
         [alluniteSdk setSdkEnabled:trackingEnabled];
         
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:trackingEnabled];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     });
 }
