@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.allunite.sdk.cordova" version="1.0.0"
+    id="com.allunite.sdk.cordova" version="1.0.1"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>Allunite SDK</name>
     <description>Cordova Allunite SDK Plugin</description>
