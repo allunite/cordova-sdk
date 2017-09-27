@@ -8,6 +8,10 @@ requestLocationPermission: function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "requestLocationPermission", []);
 },
     
+isDeviceBound: function (successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "isDeviceBound", []);
+},
+    
 isSdkEnabled: function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "isSdkEnabled", []);
 },

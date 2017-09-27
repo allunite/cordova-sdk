@@ -56,6 +56,19 @@ var app = {
         }
         
         
+        document.getElementById("isDeviceBoundButtonId").addEventListener("click", isDeviceBound);
+        function isSdkEnabled(){
+            alert("isDeviceBound")
+            var success = function(message) {
+                alert(message);
+            }
+            
+            var failure = function() {
+                alert("Error calling");
+            }
+            AlluniteSDK.isDeviceBound(success, failure);
+        } 
+
         document.getElementById("isSdkEnabledButtonId").addEventListener("click", isSdkEnabled);
         function isSdkEnabled(){
             alert("isSdkEnabled")

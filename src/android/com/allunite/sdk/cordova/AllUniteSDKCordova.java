@@ -21,6 +21,10 @@ import org.json.JSONException;
 
 public class AllUniteSDKCordova extends CordovaPlugin {
 
+    public static final int REQUEST_LOCATION = 555;
+
+    private CallbackContext permissionsCallback;
+
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         Log.d("AllUniteSDKCordova", "execute: action = " + action + " # args = " + args.length());
@@ -54,6 +58,9 @@ public class AllUniteSDKCordova extends CordovaPlugin {
         } else if (action.equals("isSdkEnabled")) {
             callbackContext.success(String.valueOf(StorageUtils.loadBoolean(getContext(), "isEnabled")));
 
+        } else if (action.equals("isDeviceBound")) {
+            callbackContext.success(String.valueOf(StorageUtils.loadBoolean(getContext(), "isBound")));
+
         } else if (action.equals("startBeaconTracking")) {
             StartServicesHelper.startServices(getContext());
             callbackContext.success();
@@ -70,6 +77,7 @@ public class AllUniteSDKCordova extends CordovaPlugin {
                 callbackContext.success();
             }
         } else if (action.equals("requestLocationPermission")) {
+            permissionsCallback = callbackContext;
             checkLocationPermission();
         } else {
             Log.e("AllUniteSDKCordova", "Unknown action received (action = " + action + ")");
@@ -99,21 +107,33 @@ public class AllUniteSDKCordova extends CordovaPlugin {
     }
 
     private void requestLocationPermission() {
-        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION},
+                REQUEST_LOCATION);
     }
 
-    /**
-     * Called by the system when the user grants permissions
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
+    private void returnRequestPermissionResult(boolean granted) {
+        if (permissionsCallback != null && !permissionsCallback.isFinished()) {
+            permissionsCallback.success(String.valueOf(granted));
+            permissionsCallback = null;
+        }
+    }
+
     @Override
     public void onRequestPermissionResult(int requestCode, String[] permissions,
                                           int[] grantResults) throws JSONException {
-        StartServicesHelper.startServices(getContext());
+        switch (requestCode) {
+            case REQUEST_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    StartServicesHelper.startServices(getContext());
+                    returnRequestPermissionResult(true);
+                } else {
+                    returnRequestPermissionResult(false);
+                }
+        }
     }
 }
+
 
 
