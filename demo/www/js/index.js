@@ -57,7 +57,7 @@ var app = {
         
         
         document.getElementById("isDeviceBoundButtonId").addEventListener("click", isDeviceBound);
-        function isSdkEnabled(){
+        function isDeviceBound(){
             alert("isDeviceBound")
             var success = function(message) {
                 alert(message);
