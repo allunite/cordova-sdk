@@ -23,5 +23,4 @@ android {
 
 dependencies {
     compile 'com.github.allunite:mobile-unity-sdk:1.2.14'
-    compile ('com.android.support:appcompat-v7:+') { transitive = true; }
 }
