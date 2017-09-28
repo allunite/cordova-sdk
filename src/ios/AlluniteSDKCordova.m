@@ -131,6 +131,15 @@
     });
 }
 
+- (void)isDeviceBound:(CDVInvokedUrlCommand*)command {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
+        BOOL isBound = [alluniteSdk isDeviceBounded];
+        
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:isBound];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    });
+}
 
 - (void)bindDevice:(CDVInvokedUrlCommand*)command {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -220,3 +229,4 @@
 }
 
 @end
+
