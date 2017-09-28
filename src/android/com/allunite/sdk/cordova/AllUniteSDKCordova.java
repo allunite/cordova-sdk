@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.allunite.sdk.AllUniteSdk;
@@ -21,13 +20,15 @@ import org.json.JSONException;
 
 public class AllUniteSDKCordova extends CordovaPlugin {
 
-    public static final int REQUEST_LOCATION = 555;
+    private static final String TAG = AllUniteSDKCordova.class.getSimpleName();
+
+    private static final int REQUEST_LOCATION = 555;
 
     private CallbackContext permissionsCallback;
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        Log.d("AllUniteSDKCordova", "execute: action = " + action + " # args = " + args.length());
+        Log.d(TAG, "execute: action = " + action + " # args = " + args.length());
 
         if (action.equals("initSdk")) {
             AllUniteSdk.init(getContext(), null, null, new IActionListener() {
@@ -80,7 +81,7 @@ public class AllUniteSDKCordova extends CordovaPlugin {
             permissionsCallback = callbackContext;
             checkLocationPermission();
         } else {
-            Log.e("AllUniteSDKCordova", "Unknown action received (action = " + action + ")");
+            Log.e(TAG, "Unknown action received (action = " + action + ")");
             callbackContext.error("unknown action");
             return false;
         }
@@ -91,6 +92,9 @@ public class AllUniteSDKCordova extends CordovaPlugin {
     private void checkLocationPermission() {
         if (!isLocationPermissionGranted())
             requestLocationPermission();
+        else {
+            returnRequestPermissionResult(true);
+        }
     }
 
     private Context getContext() {
@@ -101,16 +105,17 @@ public class AllUniteSDKCordova extends CordovaPlugin {
         return this.cordova.getActivity();
     }
 
-    public boolean isLocationPermissionGranted() {
-        return ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    private boolean isLocationPermissionGranted() {
+        return cordova.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                &&
+                cordova.hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
     }
 
     private void requestLocationPermission() {
-        ActivityCompat.requestPermissions(getActivity(),
+        cordova.requestPermissions(this, REQUEST_LOCATION,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION},
-                REQUEST_LOCATION);
+                        Manifest.permission.ACCESS_COARSE_LOCATION});
+
     }
 
     private void returnRequestPermissionResult(boolean granted) {
@@ -123,6 +128,7 @@ public class AllUniteSDKCordova extends CordovaPlugin {
     @Override
     public void onRequestPermissionResult(int requestCode, String[] permissions,
                                           int[] grantResults) throws JSONException {
+        Log.e(TAG, "onRequestPermissionResult " + String.valueOf(requestCode));
         switch (requestCode) {
             case REQUEST_LOCATION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -134,6 +140,8 @@ public class AllUniteSDKCordova extends CordovaPlugin {
         }
     }
 }
+
+
 
 
 
