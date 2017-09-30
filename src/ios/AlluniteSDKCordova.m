@@ -16,15 +16,16 @@
 
 - (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSDictionary* allUniteSdkConfig = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"AllUniteSdk"];
+        if (allUniteSdkConfig == nil) {
+            [NSException raise:@"AlluniteSdk" format:@"Missing AlluniteSdk config dictionary in app main bundle"];
+        }
         
-        NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"AlluniteSdkConfig" ofType:@"plist"];
-        NSDictionary* contentDict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-        
-        NSString* accountId = [contentDict objectForKey:@"accountId"];
-        NSString* accountKey = [contentDict objectForKey:@"accountKey"];
+        NSString* accountId = [allUniteSdkConfig objectForKey:@"accountId"];
+        NSString* accountKey = [allUniteSdkConfig objectForKey:@"accountKey"];
         
         if (accountId.length == 0 && accountKey.length == 0) {
-            [NSException raise:@"AlluniteSdkConfig.plist" format:@"Missing AlluniteSdkConfig.plist config in app recources"];
+            [NSException raise:@"AlluniteSdk" format:@"Please check the required keys accountId and accountKey in app main bundle (AlluniteSdk config dictionary)"];
         }
         
         [[AllUniteSdkManager sharedInstance] initializeAllUniteSdkWithAccountId:accountId accountKey:accountKey launchOptions:nil];

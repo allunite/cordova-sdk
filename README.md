@@ -59,19 +59,16 @@ To launch the app on a device, plug a device, then ```cordova run android```
 1. Open cordova ios project in XCode (<projectname>.xcworkspace)
 2. Open project manifest file *-Info.plist and set yours description values for keys: ```NSBluetoothPeripheralUsageDescription, NSLocationAlwaysUsageDescription, NSLocationUsageDescription``` 
 For the key ```CFBundleURLSchemes``` change from default scheme named ```allunite-sdk``` to yours, registered for your accountId and accountKey
-3. Find config file ```AlluniteSdkConfig.plist``` in the project structure and change values for keys ```accountId``` and ```accountKey``` to yours.
+3. Find config file ```<ProjectName>-Info.plist``` in the project structure and change values for keys ```accountId``` and ```accountKey``` to yours.
 Example for the CordovaDemo account:
 ``` xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
+<key>AllUniteSdk</key>
 <dict>
-	<key>accountId</key>
-	<string>CordovaDemo</string>
-	<key>accountKey</key>
-	<string>CA16C4FE98CF47AAB7B56137E9E3D7C1</string>
+    <key>accountId</key>
+    <string>CordovaDemo</string>
+    <key>accountKey</key>
+    <string>CA16C4FE98CF47AAB7B56137E9E3D7C1</string>
 </dict>
-</plist>
 ```
 
 # Android cordova project

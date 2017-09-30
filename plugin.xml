@@ -71,10 +71,19 @@
             </dict>
         </config-file>
         
+        <config-file target="*-Info.plist" parent="AllUniteSdk">
+            <dict>
+                <key>accountId</key>
+                <string>CordovaDemo</string>
+                <key>accountKey</key>
+                <string>CA16C4FE98CF47AAB7B56137E9E3D7C1</string>
+            </dict>
+        </config-file>
+        
+        
         
         <header-file src="src/ios/AlluniteSDKCordova.h" />
         <source-file src="src/ios/AlluniteSDKCordova.m" />
-        <source-file src="src/ios/AlluniteSdkConfig.plist" />
 
         <header-file src="src/ios/AllUniteSdkManager.h" />
         <header-file src="src/ios/AllUniteSdkBeaconInfo.h" />
