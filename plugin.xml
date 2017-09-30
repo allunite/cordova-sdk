@@ -11,6 +11,8 @@
     </js-module>
 
     <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
+    <preference name="ACCOUNT_ID" />
+    <preference name="ACCOUNT_KEY" />
     
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
@@ -74,9 +76,9 @@
         <config-file target="*-Info.plist" parent="AllUniteSdk">
             <dict>
                 <key>accountId</key>
-                <string>CordovaDemo</string>
+                <string>$ACCOUNT_ID</string>
                 <key>accountKey</key>
-                <string>CA16C4FE98CF47AAB7B56137E9E3D7C1</string>
+                <string>$ACCOUNT_KEY</string>
             </dict>
         </config-file>
         
