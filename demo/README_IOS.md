@@ -1,4 +1,5 @@
-Demo project.
+# Demo project. 
+## IOS
 
 1. Add ios platform:
 ```
@@ -22,35 +23,35 @@ Application Info.plist. IOS https settings, background mode, Location Service ke
 ```
 <key>NSAppTransportSecurity</key>
 <dict>
-<key>NSAllowsArbitraryLoads</key>
-<true/>
-<key>NSExceptionDomains</key>
-<dict>
-<key>sdk-api.allunite.com</key>
-<dict>
-<key>NSIncludesSubdomains</key>
-<true/>
-<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-<true/>
-</dict>
-</dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+  <key>NSExceptionDomains</key>
+  <dict>
+    <key>sdk-api.allunite.com</key>
+    <dict>
+      <key>NSIncludesSubdomains</key>
+      <true/>
+      <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+      <true/>
+    </dict>
+  </dict>
 </dict>
 
 <key>CFBundleURLTypes</key>
 <array>
-<dict>
-<key>CFBundleURLName</key>
-<string>AllUniteSdk</string>
-<key>CFBundleURLSchemes</key>
-<array>
-<string>all-unite-demo-cordova</string>
-</array>
-</dict>
+  <dict>
+    <key>CFBundleURLName</key>
+    <string>AllUniteSdk</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>all-unite-demo-cordova</string>
+    </array>
+  </dict>
 </array>
 
 <key>UIBackgroundModes</key>
 <array>
-<string>bluetooth-central</string>
+  <string>bluetooth-central</string>
 </array>
 
 <key>NSBluetoothPeripheralUsageDescription</key>
