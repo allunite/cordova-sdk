@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.allunite.sdk.cordova" version="1.0.3"
+    id="com.allunite.sdk.cordova" version="1.0.4"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>Allunite SDK</name>
     <description>Cordova Allunite SDK Plugin</description>
@@ -11,6 +11,9 @@
     </js-module>
 
     <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
+    <preference name="ACCOUNT_ID" />
+    <preference name="ACCOUNT_KEY" />
+    <preference name="URI_SCHEME" />
     
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
@@ -35,6 +38,10 @@
             <string>Your description NSLocationUsageDescription</string>
         </config-file>
         
+        <config-file target="*-Info.plist" parent="ITSAppUsesNonExemptEncryption">
+            <false/>
+        </config-file>
+        
         <config-file target="*-Info.plist" parent="UIBackgroundModes">
             <array>
                 <string>bluetooth-central</string>
@@ -48,7 +55,7 @@
                     <string>AllUniteSdk</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>all-unite-demo-cordova</string>
+                        <string>$URI_SCHEME</string>
                     </array>
                 </dict>
             </array>
@@ -71,10 +78,19 @@
             </dict>
         </config-file>
         
+        <config-file target="*-Info.plist" parent="AllUniteSdk">
+            <dict>
+                <key>accountId</key>
+                <string>$ACCOUNT_ID</string>
+                <key>accountKey</key>
+                <string>$ACCOUNT_KEY</string>
+            </dict>
+        </config-file>
+        
+        
         
         <header-file src="src/ios/AlluniteSDKCordova.h" />
         <source-file src="src/ios/AlluniteSDKCordova.m" />
-        <source-file src="src/ios/AlluniteSdkConfig.plist" />
 
         <header-file src="src/ios/AllUniteSdkManager.h" />
         <header-file src="src/ios/AllUniteSdkBeaconInfo.h" />
@@ -120,10 +136,25 @@
             <service android:name="com.bluecats.sdk.BlueCatsSDKService" android:enabled="true" />
             <service android:name=".service.BCService" />
         </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        	<meta-data
+            	android:name="AllUniteId"
+            	android:value="$ACCOUNT_ID" />
+        	<meta-data
+            	android:name="AllUniteKey"
+            	android:value="$ACCOUNT_KEY" />
+		</config-file>
+		    <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+      		<intent-filter>
+        		<action android:name="android.intent.action.VIEW" />
+        		<category android:name="android.intent.category.DEFAULT" />
+        		<category android:name="android.intent.category.BROWSABLE" />
+        			<data android:scheme="$URI_SCHEME"/>
+      		</intent-filter>
+		</config-file>
         <source-file src="src/android/com/allunite/sdk/cordova/AllUniteSDKCordova.java"
             target-dir="src/com/allunite/sdk/cordova" />
-        <!--<framework src="com.github.allunite:mobile-unity-sdk:1.2.12" />-->
         <framework custom="true" src="src/android/allunite.gradle" type="gradleReference" />
     </platform>
-
 </plugin>
