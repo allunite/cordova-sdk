@@ -38,6 +38,10 @@
             <string>Your description NSLocationUsageDescription</string>
         </config-file>
         
+        <config-file target="*-Info.plist" parent="ITSAppUsesNonExemptEncryption">
+            <false/>
+        </config-file>
+        
         <config-file target="*-Info.plist" parent="UIBackgroundModes">
             <array>
                 <string>bluetooth-central</string>
