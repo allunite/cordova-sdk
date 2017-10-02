@@ -13,6 +13,7 @@
     <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
     <preference name="ACCOUNT_ID" />
     <preference name="ACCOUNT_KEY" />
+    <preference name="URI_SCHEME" />
     
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
@@ -50,7 +51,7 @@
                     <string>AllUniteSdk</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>all-unite-demo-cordova</string>
+                        <string>$URI_SCHEME</string>
                     </array>
                 </dict>
             </array>
