@@ -5,7 +5,7 @@ Demo project.
 cordova platform add ios
 ```
 
-2. Add plugin to demo:
+2. Add plugin to demo (local path):
 ```
 cordova plugin add ./.. --variable ACCOUNT_ID=CordovaDemo --variable ACCOUNT_KEY=CA16C4FE98CF47AAB7B56137E9E3D7C1 --variable URI_SCHEME=all-unite-demo-cordova
 ```
