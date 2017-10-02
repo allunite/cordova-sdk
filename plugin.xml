@@ -132,10 +132,25 @@
             <service android:name="com.bluecats.sdk.BlueCatsSDKService" android:enabled="true" />
             <service android:name=".service.BCService" />
         </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        	<meta-data
+            	android:name="AllUniteId"
+            	android:value="$ACCOUNT_ID" />
+        	<meta-data
+            	android:name="AllUniteKey"
+            	android:value="$ACCOUNT_KEY" />
+		</config-file>
+		    <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+      		<intent-filter>
+        		<action android:name="android.intent.action.VIEW" />
+        		<category android:name="android.intent.category.DEFAULT" />
+        		<category android:name="android.intent.category.BROWSABLE" />
+        			<data android:scheme="$URI_SCHEME"/>
+      		</intent-filter>
+		</config-file>
         <source-file src="src/android/com/allunite/sdk/cordova/AllUniteSDKCordova.java"
             target-dir="src/com/allunite/sdk/cordova" />
-        <!--<framework src="com.github.allunite:mobile-unity-sdk:1.2.12" />-->
         <framework custom="true" src="src/android/allunite.gradle" type="gradleReference" />
     </platform>
-
 </plugin>
