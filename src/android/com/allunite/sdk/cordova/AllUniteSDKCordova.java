@@ -18,6 +18,8 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.Locale;
+
 public class AllUniteSDKCordova extends CordovaPlugin {
 
     private static final String TAG = AllUniteSDKCordova.class.getSimpleName();
@@ -42,8 +44,9 @@ public class AllUniteSDKCordova extends CordovaPlugin {
                 }
 
                 @Override
-                public void onError() {
-                    callbackContext.error("initSdk error");
+                public void onError(Throwable t) {
+                    callbackContext
+                            .error(String.format(Locale.ENGLISH, "initSdk error %s", t));
                 }
             });
 
@@ -140,6 +143,7 @@ public class AllUniteSDKCordova extends CordovaPlugin {
         }
     }
 }
+
 
 
 
