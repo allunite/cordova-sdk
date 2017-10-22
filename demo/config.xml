@@ -25,4 +25,9 @@
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
     <engine name="android" spec="~6.2.3" />
+    <plugin name="com.allunite.sdk.cordova" spec="./..">
+        <variable name="ACCOUNT_ID" value="CordovaDemo" />
+        <variable name="ACCOUNT_KEY" value="CA16C4FE98CF47AAB7B56137E9E3D7C1" />
+        <variable name="URI_SCHEME" value="all-unite-demo-cordova" />
+    </plugin>
 </widget>
