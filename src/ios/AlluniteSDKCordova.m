@@ -67,8 +67,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
-        
-        [alluniteSdk requestAutorizationStatus:^(CLAuthorizationStatus status) {
+        [alluniteSdk requestAutorizationStatus:always handler:^(CLAuthorizationStatus status) {
             if (status == kCLAuthorizationStatusNotDetermined) {
                 return;
             }
@@ -148,36 +147,26 @@
         
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
         
-        [alluniteSdk requestAutorizationStatus:^(CLAuthorizationStatus status) {
+        if (!alluniteSdk.isLocationAvailable){
+            NSLog(@"%@. App don't have permission using CoreLocation", [self TAG]);
             
-            if (status == kCLAuthorizationStatusNotDetermined) {
-                return;
-            }
-            
-            if (status != kCLAuthorizationStatusAuthorizedAlways
-                && status != kCLAuthorizationStatusAuthorizedWhenInUse) {
-                
-                NSLog(@"%@. App don't have permission using CoreLocation", [self TAG]);
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+            return;
+        }
+        
+        [alluniteSdk bindDevice:^(NSError * _Nullable error) {
+            if (error != nil) {
+                NSLog(@"%@. Bind failed", [self TAG]);
                 
                 CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                 return;
             }
             
-            [alluniteSdk bindDevice:^(NSError * _Nullable error) {
-                if (error != nil) {
-                    NSLog(@"%@. Bind failed", [self TAG]);
-                    
-                    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-                    return;
-                }
-                
-                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-            }];
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }];
-        
     });
 }
 
