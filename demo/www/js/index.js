@@ -52,7 +52,9 @@ var app = {
             var failure = function() {
                 alert("Error calling");
             }
-            AlluniteSDK.requestLocationPermission(success, failure);
+            //AlluniteSDK.AuthorizationAlgorithm.always
+            //AlluniteSDK.AuthorizationAlgorithm.customAlwaysTwoDialog
+            AlluniteSDK.requestLocationPermission(AlluniteSDK.AuthorizationAlgorithm.always, success, failure);
         }
         
         

@@ -65,9 +65,23 @@
 
 - (void)requestLocationPermission:(CDVInvokedUrlCommand*)command
 {
+    
+    if (command.arguments.count != 1) {
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        return;
+    }
+    
+    int autorizationAlgorithmInt = [command.arguments[0] intValue];
+    
+    AllUniteSdkAuthorizationAlgorithm autorizationAlgorithm = always;
+    if(autorizationAlgorithmInt == customAlwaysTwoDialog){
+        autorizationAlgorithm = customAlwaysTwoDialog;
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         AllUniteSdkManager* alluniteSdk = [AllUniteSdkManager sharedInstance];
-        [alluniteSdk requestAutorizationStatus:always handler:^(CLAuthorizationStatus status) {
+        [alluniteSdk requestAutorizationStatus:autorizationAlgorithm handler:^(CLAuthorizationStatus status) {
             if (status == kCLAuthorizationStatusNotDetermined) {
                 return;
             }

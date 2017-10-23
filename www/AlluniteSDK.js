@@ -4,8 +4,8 @@ initSdk: function(successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "initSdk", []);
 },
     
-requestLocationPermission: function (successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "requestLocationPermission", []);
+requestLocationPermission: function (authorizationAlgorithm,successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "requestLocationPermission", [authorizationAlgorithm]);
 },
     
 isDeviceBound: function (successCallback, errorCallback) {
@@ -38,7 +38,13 @@ startBeaconTracking: function (successCallback, errorCallback) {
     
 stopBeaconTracking: function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "AlluniteSDKCordova", "stopBeaconTracking", []);
+},
+
+AuthorizationAlgorithm : {
+    always : 1,
+    customAlwaysTwoDialog : 500,
 }
+    
 };
 
 module.exports = AlluniteSDK;
