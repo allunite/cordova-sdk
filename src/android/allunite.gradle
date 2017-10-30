@@ -22,5 +22,5 @@ android {
 }
 
 dependencies {
-    compile 'com.github.allunite:mobile-unity-sdk:1.2.15'
+    compile 'com.github.allunite:mobile-unity-sdk:1.2.16'
 }
