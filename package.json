@@ -1,6 +1,6 @@
 {
   "name": "allunite-cordova-sdk",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Cordova Allunite SDK Plugin",
   "cordova": {
     "id": "com.allunite.sdk.cordova",
