@@ -29,5 +29,5 @@
         <variable name="ACCOUNT_KEY" value="CA16C4FE98CF47AAB7B56137E9E3D7C1" />
         <variable name="URI_SCHEME" value="all-unite-demo-cordova" />
     </plugin>
-    <engine name="ios" spec="~4.5.2" />
+    <engine name="ios" spec="~4.5.4" />
 </widget>

@@ -28,7 +28,8 @@
             [NSException raise:@"AlluniteSdk" format:@"Please check the required keys accountId and accountKey in app main bundle (AlluniteSdk config dictionary)"];
         }
         
-        [[AllUniteSdkManager sharedInstance] initializeAllUniteSdkWithAccountId:accountId accountKey:accountKey launchOptions:nil];
+        [[AllUniteSdkManager sharedInstance] enableDebugLog];
+        [[AllUniteSdkManager sharedInstance] initializeAllUniteSdkWithAccountId:accountId accountKey:accountKey launchOptions:nil completion:nil];
         
     });
 }
